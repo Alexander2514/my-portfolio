@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Navbar from "@/components/navbar";
+// @ts-ignore: allow global CSS side-effect import in Next.js
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,12 +26,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <LanguageProvider>
+        <Navbar/> 
         {children}
+        <Footer/>
+        </LanguageProvider>
       </body>
     </html>
   );

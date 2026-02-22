@@ -1,65 +1,58 @@
+'use client';
+
 import Image from "next/image";
+import Navbar from '../components/navbar'
+import { useState } from "react";
+import Hero from '../components/Hero'
+import ProjectCard from '../components/ProjectCard'
+
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "../lib/translate";
+import TechSkills from "@/components/TechSkills";
+import AboutMe from "@/components/AboutMe";
+import Contact from "@/components/Contact";
 
 export default function Home() {
+  
+  const projects = [
+    {
+      title: "PocketReady Store",
+      description: "E-commerce especializado en equipo EDC y táctico. / E-commerce specialized in EDC and tactical gear.",
+      tags: ["Next.js", "Tailwind", "Stripe"],
+    },
+    {
+      title: "Kali Security Toolbox",
+      description: "Scripts de automatización para auditorías de red en entornos Linux. / Automation scripts for network audits in Linux environments.",
+      tags: ["Python", "Bash", "Linux"],
+    },
+    {
+      title: "Fitness Tracker App",
+      description: "Aplicación de seguimiento para rutinas de fuerza y pesas. / Tracking app for strength and weightlifting routines.",
+      tags: ["React Native", "Firebase", "Motion"],
+    },
+  ];
+
+  const { lang, setLang } = useLanguage(); // ¡Magia! Sin props.
+  const t = translations[lang];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="bg-slate-950 min-h-screen">
+      
+      
+      <Hero/>
+      
+      <TechSkills/>
+      <AboutMe/>
+      <section className="max-w-6xl mx-auto px-6 py-24 perspective-1000"> 
+         {/* perspective-1000 es importante para el 3D */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {projects.map((proj) => (
+            <ProjectCard key={proj.title} {...proj} />
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+          
+        <Contact/>
+    </main>
   );
 }
