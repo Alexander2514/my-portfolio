@@ -1,22 +1,26 @@
-// src/components/ProjectCard.tsx
 "use client";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ExternalLink, Github as GithubIcon, Terminal } from "lucide-react";
 import { translations } from "../lib/translate";
 import { useLanguage } from "@/context/LanguageContext";
-
+import Image from "next/image";
+import { image } from "framer-motion/client";
 type Language = "es" | "en";
 
 interface ProjectProps {
   title: string;
   description: string;
   tags: string[];
+  images: string;
+  repo?: string;
+  view?: string;
+  id?: string;
+ 
 }
 
-export default function ProjectCard({ title, description, tags}: ProjectProps) {
-const { lang, setLang } = useLanguage(); // ¡Magia! Sin props.
+export default function ProjectCard({ title, description, tags,images}: ProjectProps) {
+const { lang, setLang } = useLanguage(); 
   const t = translations[lang];
-  // Configuración del efecto 3D Tilt
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -43,6 +47,16 @@ const { lang, setLang } = useLanguage(); // ¡Magia! Sin props.
     y.set(0);
   };
 
+  const getImageUrl = (data: any): string => {
+    if (Array.isArray(data) && data.length > 0) return data[0];
+    if (typeof data === 'string') {
+      return data.replace(/[\[\]"']/g, '').split(',')[0];
+    }
+    return '';
+  };
+
+  const imageToShow = getImageUrl(images);
+
   return (
     <motion.div
       onMouseMove={handleMouseMove}
@@ -54,7 +68,6 @@ const { lang, setLang } = useLanguage(); // ¡Magia! Sin props.
       }}
       className="relative h-full rounded-2xl bg-slate-900/50 border border-white/10 p-6 backdrop-blur-sm transition-all hover:border-blue-500/50 group"
     >
-      {/* Efecto de "Brillo" al mover la tarjeta */}
       <div
         style={{
           transform: "translateZ(75px)",
@@ -63,10 +76,15 @@ const { lang, setLang } = useLanguage(); // ¡Magia! Sin props.
         className="absolute inset-4 grid place-content-center rounded-xl bg-blue-500/20 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
       ></div>
 
-      <div style={{ transform: "translateZ(50px)" }} className="relative">
-        <div className="h-32 mb-6 bg-gradient-to-br from-slate-800 to-slate-950/50 rounded-xl flex items-center justify-center border border-white/5">
-           <Terminal size={48} className="text-blue-400/50" />
-        </div>
+      <div className="relative aspect-video w-full overflow-hidden">
+          <Image
+            src={imageToShow}
+            alt={title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+       
+      </div>
 
         <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors">
           {title}
@@ -94,7 +112,6 @@ const { lang, setLang } = useLanguage(); // ¡Magia! Sin props.
             <ExternalLink size={16} /> {t.projects.viewDemo}
           </button>
         </div>
-      </div>
     </motion.div>
   );
 }

@@ -7,7 +7,7 @@ export const translations = {
     },
     hero: {
       role: "Desarrollador Fullstack y entusiasta de la ciencia",
-      sub: "Diseño arquitecturas React sólidas, automatizo procesos con Python y aplico estrategias de SEO técnico orientadas a resultados. Explora mi portafolio para ver proyectos reales.",
+      sub: "Desarrollador fullstack enfocado en resultados. Construyo interfaces escalables con React y TypeScript, desarrollo backends robustos con Node.js y aplico estrategias técnicas de SEO para maximizar el posicionamiento orgánico. Desde la implementación hasta la producción, cada detalle importa.",
     },
     about: {
       title: "Perfil Profesional",
@@ -77,7 +77,7 @@ export const translations = {
     },
     hero: {
       role: "Fullstack Developer & Science Enthusiast",
-      sub: "I design solid React architectures, automate workflows with Python, and apply technical SEO strategies focused on results. Check my portfolio to see real projects.",
+      sub: "Fullstack Developer focused on results. I build scalable interfaces with React & TypeScript, develop robust backends with Node.js, and apply technical SEO strategies to maximize organic positioning. From deployment to production, every detail matters.",
     },
     about: {
       title: "Professional Profile",

@@ -5,10 +5,10 @@ import { useState } from "react";
 import  {translations}  from "../lib/translate";
 import LangToggle from './LangToggle'
 import { useLanguage } from "@/context/LanguageContext";
-
+import Link from "next/link";
 export default function Navbar() {
 
-  const { lang, setLang } = useLanguage(); // ¡Magia! Sin props.
+  const { lang, setLang } = useLanguage(); 
   const t = translations[lang];
   return (
     <motion.nav
@@ -18,22 +18,24 @@ export default function Navbar() {
     >
       <div className="w-full max-w-7xl flex items-center justify-between bg-slate-950/40 backdrop-blur-xl border border-white/5 px-8 py-4 rounded-3xl shadow-2xl">
         
-        {/* Logo con Animación de Pulso */}
+
+        <Link href='/'>
         <div className="text-2xl font-black tracking-tighter text-white">
           ALEX<span className="text-blue-500">.</span>
         </div>
-
-        {/* Links con Efecto Hover */}
+    </Link>
         <div className="hidden md:flex gap-10">
-          <a href="#proyectos" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
+          <a href="#projects" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
             {t.nav.projects}
           </a>
           <a href="#sobre-mi" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
             {t.nav.about}
           </a>
+          <a href="#contact" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
+            Contact
+          </a>
         </div>
 
-        {/* El Conmutador Pro */}
         <LangToggle/>
       </div>
     </motion.nav>

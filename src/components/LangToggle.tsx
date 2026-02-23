@@ -1,14 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
-import { useLanguage } from "@/context/LanguageContext"; // Importamos el contexto
+import { useLanguage } from "@/context/LanguageContext"; 
 
 export default function LangToggle() {
-  // Ahora obtenemos el estado global directamente aquí
   const { lang, setLang } = useLanguage();
 
   return (
     <div className="relative flex items-center bg-slate-900/80 backdrop-blur-md border border-white/10 p-1 rounded-full w-24 h-10 shadow-xl overflow-hidden">
-      {/* Fondo Deslizante */}
       <motion.div
         layout
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -16,7 +14,6 @@ export default function LangToggle() {
         animate={{ x: lang === "en" ? 0 : 44 }}
       />
 
-      {/* Botón Español */}
       <button
         onClick={() => setLang("en")}
         className={`relative z-10 flex-1 text-xs font-bold transition-colors duration-300 ${
@@ -26,7 +23,6 @@ export default function LangToggle() {
         EN
       </button>
 
-      {/* Botón Inglés */}
       <button
         onClick={() => setLang("es")}
         className={`relative z-10 flex-1 text-xs font-bold transition-colors duration-300 ${

@@ -48,7 +48,6 @@ export default function TechSkills() {
             </div>
             <span className="text-sm font-semibold tracking-wide">{skill.name}</span>
             
-            {/* Efecto de luz inferior al hacer hover */}
             <div className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-transparent via-current to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           </motion.div>
         ))}

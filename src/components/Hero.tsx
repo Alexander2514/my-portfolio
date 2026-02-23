@@ -1,20 +1,18 @@
-// src/components/Hero.tsx
 "use client";
 import { useState, MouseEvent } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { translations } from "../lib/translate";
 import { useLanguage } from "@/context/LanguageContext";
-// Definimos el tipo de idioma
+
 type Language = "es" | "en";
 
 export default function Hero() {
-  const { lang, setLang } = useLanguage(); // ¡Magia! Sin props.
+  const { lang, setLang } = useLanguage(); 
   const t = translations[lang];
 
   let mouseX = useMotionValue(0);
   let mouseY = useMotionValue(0);
 
-  // Función para el efecto "Spotlight" que sigue al mouse
   function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
     let { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
@@ -26,7 +24,6 @@ export default function Hero() {
       className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-slate-950 text-white group"
       onMouseMove={handleMouseMove}
     >
-      {/* 1. Fondo de Cuadrícula y Spotlight */}
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
       {/* Esta es la luz que sigue al mouse */}
       <motion.div
@@ -48,7 +45,6 @@ export default function Hero() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="z-10 text-center relative px-4"
       >
-        {/* 2. Título con Gradiente Animado de Alto Impacto */}
         <h1 className="text-6xl md:text-9xl font-extrabold tracking-tighter pb-4">
           ALEX
           <span className="animate-text-gradient bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 bg-[200%_auto] bg-clip-text text-transparent">
@@ -64,7 +60,7 @@ export default function Hero() {
         >
          <span className="font-bold text-blue-400">{t.hero.role.split(' & ')[0]}</span> & {t.hero.role.split(' & ')[1]}
          <br />
-         {t.hero.description}
+         {t.hero.sub}
         </motion.p>
       </motion.div>
 
