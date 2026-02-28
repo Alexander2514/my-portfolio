@@ -18,6 +18,11 @@ interface ProjectProps {
  
 }
 
+const checkIsVideo = (src: string) => {
+  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov'];
+  return videoExtensions.some(ext => src.toLowerCase().endsWith(ext));
+};
+
 export default function ProjectCard({ title, description, tags,images}: ProjectProps) {
 const { lang, setLang } = useLanguage(); 
   const t = translations[lang];
@@ -55,7 +60,17 @@ const { lang, setLang } = useLanguage();
     return '';
   };
 
-  const imageToShow = getImageUrl(images);
+  // Lógica de Media Mejorada
+  const getMediaInfo = (data: any) => {
+    let src = '';
+    if (Array.isArray(data) && data.length > 0) src = data[0];
+    else if (typeof data === 'string') {
+      src = data.replace(/[\[\]"']/g, '').split(',')[0].trim();
+    }
+    return { src, isVideo: checkIsVideo(src) };
+  };
+
+  const { src: mediaSrc, isVideo } = getMediaInfo(images);
 
   return (
     <motion.div
@@ -76,14 +91,24 @@ const { lang, setLang } = useLanguage();
         className="absolute inset-4 grid place-content-center rounded-xl bg-blue-500/20 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
       ></div>
 
-      <div className="relative aspect-video w-full overflow-hidden">
+      <div className="relative aspect-video w-full overflow-hidden rounded-lg mb-4 bg-zinc-950">
+        {!isVideo ? (
           <Image
-            src={imageToShow}
+            src={mediaSrc || "/placeholder-project.jpg"}
             alt={title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-       
+        ) : (
+          <video
+            src={mediaSrc}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        )}
       </div>
 
         <h3 className="text-2xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors">

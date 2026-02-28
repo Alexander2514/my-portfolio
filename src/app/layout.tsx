@@ -5,6 +5,8 @@ import Navbar from "@/components/navbar";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import Footer from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/next"
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +35,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics />
         <LanguageProvider>
         <Navbar/> 
         {children}
